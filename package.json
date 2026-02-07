@@ -1,7 +1,7 @@
 {
-  "name": "telegram-railway-api",
+  "name": "telegram-relay-api",
   "version": "1.0.0",
-  "description": "Telegram relay API for Railway",
+  "description": "Telegram relay API for Render",
   "main": "index.js",
   "type": "module",
   "scripts": {
