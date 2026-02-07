@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 const app = express();
 app.use(bodyParser.json());
 
-// Environment variables (Railway me set karna)
+// Environment variables (set in Render)
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 
@@ -46,35 +46,4 @@ app.get("/ask", async (req, res) => {
     const interval = setInterval(async () => {
       attempts++;
 
-      const updatesRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getUpdates`);
-      const updatesData = await updatesRes.json();
-
-      if (updatesData.result.length > 0) {
-        updatesData.result.forEach((upd) => {
-          if (upd.message && upd.message.reply_to_message) {
-            const repliedId = upd.message.reply_to_message.message_id;
-            for (let u in userMap) {
-              if (userMap[u].message_id === repliedId) {
-                userMap[u].reply = upd.message.text;
-              }
-            }
-          }
-        });
-      }
-
-      if (userMap[user].reply || attempts > 10) { // max 20 sec wait
-        clearInterval(interval);
-        return res.json({ reply: userMap[user].reply || "No reply yet" });
-      }
-
-    }, 2000);
-
-  } catch (err) {
-    console.error(err);
-    res.json({ error: "Something went wrong" });
-  }
-});
-
-// -------------------- Start Server --------------------
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`API running on port ${PORT}`));
+      const
